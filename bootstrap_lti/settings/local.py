@@ -69,7 +69,7 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
-        'lecture_video': {
+        'basic_lti_app': {
             'handlers': ['console', 'logfile'],
             'level': 'DEBUG',
             'propagate': True,

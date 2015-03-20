@@ -8,11 +8,25 @@
     tr:nth-child(even) {background: #FFF}
     tr:nth-child(odd) {background: lightblue}
     #lti-table {margin-left: 5px; }
+    #enrollment-table {margin-left: 5px; }
 </style>
 <body>
 
-<h1>LTI Params</h1>
+<h1>Welcome to the Bootstrap_LTI APP!</h1>
 
+<h2>SDK Call</h2>
+<table id="enrollment-table" width="80%" cellpadding="2px" cellspacing="2px">
+<thead>
+    <tr><th>Name</th><th>Role</th></tr>
+    </thead>
+    <tbody>
+        {% for enrollment in enrollments %}
+            <tr><td>{{ enrollment.user.sortable_name }}</td><td>{{ enrollment.role|cut:"Enrollment"}}</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>LTI Params</h2>
 <table id="lti-table" width="80%" cellpadding="2px" cellspacing="2px">
     <thead>
     <tr><th>Num</th><th>LTI Param Name</th><th>Value</th></tr>

@@ -2,8 +2,15 @@ from django.shortcuts import (render, redirect)
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.conf import settings
 from ims_lti_py.tool_config import ToolConfig
 from django.http import HttpResponse
+from canvas_sdk.methods import enrollments
+from canvas_sdk.utils import get_all_list_data
+from canvas_sdk.exceptions import CanvasAPIError
+from canvas_sdk import RequestContext
+
+SDK_CONTEXT = request_context = RequestContext(**settings.CANVAS_SDK_SETTINGS)
 
 # Create your views here.
 
@@ -36,10 +43,12 @@ def main(request):
     """
     The main method dipslay the default view which is the map_view.
     """
+    canvas_course_id = request.session['LTI_LAUNCH']['custom_canvas_course_id']
+    users = get_all_list_data(SDK_CONTEXT, enrollments.list_enrollments_courses, canvas_course_id)
 
     lti_params_dict = request.session.get('LTI_LAUNCH', {})
 
-    return render(request, 'basic_lti_app/lti_view.html', {'request': request, 'lti_params_dict': lti_params_dict})
+    return render(request, 'basic_lti_app/lti_view.html', {'request': request, 'lti_params_dict': lti_params_dict, 'enrollments': users})
 
 @require_http_methods(['GET'])
 def tool_config(request):

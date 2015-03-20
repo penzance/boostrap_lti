@@ -37,7 +37,7 @@ path.append(SITE_ROOT)
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'mis8ka584j_isoikxb4q5na402mm3nmy1jt&nzj%&%kh!636^-'
+SECRET_KEY = SECURE_SETTINGS.get('django_secret_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -134,4 +134,16 @@ TEMPLATE_DIRS = (
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 LTI_OAUTH_CREDENTIALS = SECURE_SETTINGS.get('lti_oauth_credentials', None)
+
+# configure Canvas SDK settings
+# you will need to make sure that the base_api_url points to your
+# canvas instance. Also see the section title 'Manual Token Generation' at 
+# this url for how to create a token:
+# https://canvas.instructure.com/doc/api/file.oauth.html
+CANVAS_SDK_SETTINGS = {
+    'auth_token': SECURE_SETTINGS.get('canvas_token', None),
+    'base_api_url': 'https://canvas-sandbox.tlt.harvard.edu/api',
+    'max_retries': 3,
+    'per_page': 40,
+}
 
