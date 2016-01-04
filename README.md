@@ -172,6 +172,9 @@ After submitting the form, reload the course page. In the left sidebar, there sh
 
 This app shows all data available through LTI. If you attempt to access the app in the future and get the error message *"The server unexpectedly closed the connection,"* you must return to `https://localhost:8000/lti_tools/basic_lti_app/tool_config` and override the security warning again.
 
+If configured properly, the tool should look something like the following:
 
+![App View](/images/app_view.png)
 
 After finishing, don't forget to close your server, run the `exit` command and run `vagrant halt` to reset the ports and close the virtual machine.
+
